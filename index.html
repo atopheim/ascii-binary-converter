@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character to ASCII and Binary Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        input, button {
+            margin: 10px;
+        }
+        #output {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Character to ASCII and Binary Converter</h1>
+
+    <input type="text" id="characterInput" placeholder="Enter a character" maxlength="1">
+    <button onclick="convertCharacter()">Convert</button>
+
+    <div id="output"></div>
+
+    <script>
+        function convertCharacter() {
+            const char = document.getElementById("characterInput").value;
+            const output = document.getElementById("output");
+
+            if (char.length !== 1) {
+                output.innerText = "Please enter a single character.";
+                return;
+            }
+
+            // ASCII conversion
+            const asciiValue = char.charCodeAt(0);
+            // Binary conversion
+            const binaryValue = asciiValue.toString(2).padStart(8, '0');
+
+            // Find positions of 1's in binary representation
+            const onePositions = [];
+            for (let i = 0; i < binaryValue.length; i++) {
+                if (binaryValue[i] === '1') {
+                    onePositions.push(i ); // Use 0-based index
+                }
+            }
+
+            // Display results
+            output.innerHTML = `
+                <p>Character: ${char}</p>
+                <p>ASCII: ${asciiValue}</p>
+                <p>Binary: ${binaryValue} (Only '1' positions: ${onePositions.join(", ")})</p>
+            `;
+        }
+    </script>
+
+</body>
+</html>
